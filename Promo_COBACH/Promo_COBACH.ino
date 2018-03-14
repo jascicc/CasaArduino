@@ -1,19 +1,13 @@
 int led1=7, led2=8, led3=9, led4=10, led5=11;
-int btn1=2, btn2=3, btn3=4, btn4=5, btn5=6;
 int inst=0;
 bool led1On=false, led2On=false, led3On=false, led4On=false, led5On=false;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  for(int i=2;i<=6;i++)
-  {
-    pinMode(i,INPUT);
-  }
   for(int l=7;l<=11;l++)
   {
     pinMode(l,OUTPUT);
   }
-  Serial.println("Conected");
 }
 
 void dashBoardInstruction(){
@@ -23,6 +17,11 @@ void dashBoardInstruction(){
       for(l=7; l<=11; l++){
         digitalWrite(l, LOW);
         delay(50);
+        led1On=false;
+        led2On=false;
+        led3On=false;
+        led4On=false;
+        led5On=false;
       }
     break;
 
@@ -30,27 +29,67 @@ void dashBoardInstruction(){
       for(l=7; l<=11; l++){
         digitalWrite(l, HIGH);
         delay(50);
+        led1On=true;
+        led2On=true;
+        led3On=true;
+        led4On=true;
+        led5On=true;
       }
     break;
 
     case 2:
-      digitalWrite(led1,HIGH);
+      if(!led1On){
+        digitalWrite(led1,HIGH);
+        led1On=true;
+      }
+      else{
+        digitalWrite(led1,LOW);
+        led1On=false;
+      }
     break;
 
     case 3:
-      digitalWrite(led2,HIGH);
+      if(!led2On){
+        digitalWrite(led2,HIGH);
+        led2On=true;
+      }
+      else{
+        digitalWrite(led2,LOW);
+        led2On=false;
+      }
     break;
 
     case 4:
-      digitalWrite(led3,HIGH);
+      if(!led3On){
+        digitalWrite(led3,HIGH);
+        led3On=true;
+      }
+      else{
+        digitalWrite(led3,LOW);
+        led3On=false;
+      }
     break;
 
     case 5:
-      digitalWrite(led4,HIGH);
+      if(!led4On){
+        digitalWrite(led4,HIGH);
+        led4On=true;
+      }
+      else{
+        digitalWrite(led4,LOW);
+        led4On=false;
+      }
     break;
 
     case 6:
-      digitalWrite(led5,HIGH);
+      if(!led5On){
+        digitalWrite(led5,HIGH);
+        led5On=true;
+      }
+      else{
+        digitalWrite(led5,LOW);
+        led5On=false;
+      }
     break;
   }
 }
@@ -60,11 +99,6 @@ void loop() {
     inst=Serial.read()-'0';
     delay(50);
     dashBoardInstruction();
-  }
-  if(digitalRead(btn1)==HIGH){
-    Serial.write(1);
-    Serial.println("Sala prendida");
-    digitalWrite(led1,HIGH);
   }
   delay(10);
 }
